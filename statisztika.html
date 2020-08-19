@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" ; href="css/style.css">
+    <link rel="stylesheet" ; href="lib/css/bootstrap.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <title>GALOIS BT</title>
+</head>
+
+<body>
+
+    <div class="container-lg">
+        <p>
+        <div class="nav">
+
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top ">
+                <a class="navbar-brand" href="#">
+                    <img src="img/g_betu.jpg" width="30" height="30" alt="g_betű">
+                </a>
+                <a class="navbar-brand" href="#">GALOIS BT</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link " href="index.html">Főoldal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Statisztika</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Oktatás</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="ugyvitel.html">Ügyvitel</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="kapcsolat.html">Kapcsolat</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.html">Bejelentkezés</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Keresés" aria-label="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 active" type="submit">Keresés</button>
+                    </form>
+                </div>
+            </nav>
+
+            </p>
+
+        </div>
+        <p class="pOsztaly"></p>
+
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>STATISZTIKAI SZÁMÍTÁS</strong>
+            Töltse ki a dátumot és a mérési eredményt, majd click a számításhoz.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <form id=" Adatok" class="pOsztaly">
+            <div class="form-row">
+                <div class="form-group col-md-3"></div>
+                <div class="form-group col-md-3">
+                    <label for="inputDatum">dátum</label>
+                    <input type="date" class="form-control" id="inputDatum">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputAdat">mérési eredmény</label>
+                    <input type="numeric" class="form-control" id="inputAdat">
+                </div>
+                <button onclick="tombbeir()" type="submit" class="btn btn-success">submit</button>
+            </div>
+        </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <table id="DataTable" class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>dátum</th>
+                                <th>érték</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div>
+            <p class="pOsztaly">
+                <button onclick="osszead()" type="button" class="btn btn-success">
+                    átlag
+                </button>
+                <button onclick="minkeres()" type="button" class="btn btn-success">
+                    minimum
+                </button>
+                <button onclick="maxkeres()" type="button" class="btn btn-success">
+                    maximum
+                </button>
+            </p>
+            <p class="pOsztaly">
+
+
+                átlag: <input class="jobbra" type="text" size="10" value="" id="osszesen" disabled>
+                minimum: <input class="jobbra" type="text" size="10" value="" id="szelsomin" disabled>
+                maximum: <input class="jobbra" type="text" size="10" value="" id="szelsomax" disabled>
+
+            </p>
+        </div>
+    </div>
+
+    <script src="js/statisztika.js"></script>
+</body>
+
+</html>

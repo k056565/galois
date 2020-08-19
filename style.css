@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+.pOsztaly
+{color:grey; background: lightgrey ;font-family: "Roboto", sans-serif; font-size: 14 px; 
+    text-align: justify; line-height: 22px; margin: 40px 10px 10px 10px; border-radius: 10px; padding: 10px 10px 10px 10px;
+box-shadow: 4px 4px 8px grey;}
+.kepek
+{width: 200px; height: 140px; margin: 10px 32px 10px 32px; box-shadow: 4px 4px 3px rgb(45, 45, 63);}
+.jobbra
+{text-align: right;}
