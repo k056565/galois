@@ -1,3 +1,4 @@
+let keys = ["id", "Dátum", "Érték"];
 
 {
     let bezarAlert = document.querySelectorAll(".close[data-dismiss='alert']");
@@ -10,90 +11,194 @@
 
 }
 
-let AdatObj = [
-    { Dátum: "2020-07-01", Érték: "100" },
-    { Dátum: "2020-07-02", Érték: "200" },
-    { Dátum: "2020-07-03", Érték: "300" },
-];
-let tableBody = document.querySelector("#DataTable tbody");
-for (let k in AdatObj) {
-    let tr = document.createElement("tr");
-    let td = document.createElement("td");
-    td.innerHTML = parseInt(k) + 1;
-    tr.appendChild(td);
-    for (let index of Object.values(AdatObj[k])) {
-        let td = document.createElement("td");
+function getServerData(url) {
+    let fetchOption = {
+        method: "GET",
+        /*  headers: new Headers(), */
+        mode: "cors",
+        cache: "no-cache"
+    };
 
-        td.innerHTML = index;
+    return fetch(url, fetchOption).then(
+        response => response.json(),
+        err => console.error(err)
+    );
+}
+
+document.querySelector("#GetDataBtn").addEventListener("click", StartGetUsers);
+
+function StartGetUsers() {
+
+    getServerData("http://localhost:3000/StatAdat").then(
+        data => FillDataTable(data, "DataTable")
+    );
+
+};
+
+function FillDataTable(data, TableId) {
+
+    let table = document.querySelector(`#${TableId}`);
+    if (!table) {
+        console.error(`Table "#${TableId}" is not found`)
+        return
+    }
+    // add new user row to the table
+
+    let tBody = table.querySelector("tbody");
+    tBody.innerHTML = '';
+    let newRow = newUserRow();
+    tBody.appendChild(newRow);
+
+
+    for (let row of data) {
+        let tr = createAnyElement("tr");
+        for (let k of keys) {
+            let td = createAnyElement("td");
+
+            let input = createAnyElement("input", {
+                class: "form-control",
+                value: row[k],
+                name: k
+
+            });
+
+            if (k == "id") {
+                input.setAttribute("readonly", true);
+
+            }
+            td.appendChild(input);
+            tr.appendChild(td);
+        }
+        let btngroup = createBtnGroup();
+        tr.appendChild(btngroup);
+
+        tBody.appendChild(tr);
+    }
+}
+
+function createAnyElement(name, attributes) {
+
+    let element = document.createElement(name);
+    for (let k in attributes) {
+        element.setAttribute(k, attributes[k]);
+    }
+    return element;
+}
+function createBtnGroup() {
+    let group = createAnyElement("div", { class: "btn btn-grup" });
+    let infobtn = createAnyElement("button", { class: "btn-info", onclick: "setRow(this)" });
+    infobtn.innerHTML = '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
+    let delbtn = createAnyElement("button", { class: "btn-danger", onclick: "delRow(this)" });
+    delbtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+    group.appendChild(infobtn);
+    group.appendChild(delbtn);
+    let td = createAnyElement("td");
+    td.appendChild(group);
+    return td;
+}
+
+function delRow(btn) {
+    let tr = btn.parentElement.parentElement.parentElement;
+
+    let id = tr.querySelector("td:first-child").querySelector("input").value;
+    
+
+    let fetchOption = {
+        method: "DELETE",
+        mode: "cors",
+        cache: "no-cache"
+       
+    };
+    
+      if (confirm("Biztosan törli az adatot?")) {
+     fetch(`http://localhost:3000/StatAdat/${id}`, fetchOption).then( 
+       
+     
+           resp => resp.json(),
+           err => console.error(err)
+       ).then(
+           data => {
+               StartGetUsers()
+           }
+       );
+       }; 
+}
+function newUserRow(row) {
+    let tr = createAnyElement("tr");
+    for (let k of keys) {
+        let td = createAnyElement("td");
+        let input = createAnyElement("input", {
+            class: "form-control",
+            name: k
+        });
+        td.appendChild(input);
         tr.appendChild(td);
     }
-    tableBody.appendChild(tr);
+    let newBtn = createAnyElement("button", {
+        class: "btn btn-success",
+        onclick: "createUser(this)"
+    })
+    newBtn.innerHTML = '<i class="fa fa-plus-circle" aria-hidden="true"></i>';
+    let td = createAnyElement("td");
+    td.appendChild(newBtn);
+    tr.appendChild(td);
+    return tr;
 }
 
-function tombbeir() {
-    let adat = document.getElementById("inputAdat");
-    let datum = document.getElementById("inputDatum");
+function createUser(btn) {
+    let tr = btn.parentElement.parentElement;
 
+    let data = getRowData(tr);
 
-
-    alert(adat.value);
-    alert(datum.value);
+    delete data.id;
+    let fetchOption = {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    fetch('http://localhost:3000/StatAdat', fetchOption).then(
+        resp => resp.json(),
+        err => console.error(err)
+    ).then(
+        data => StartGetUsers()
+    );
 }
 
-function osszead() {
+function getRowData(tr) {
 
-
-    var kiiras;
-    var osszeg = 0;
-    var db = 0;
-
-    for (let index of Object.values(AdatObj)) {
-
-        osszeg = osszeg + Number(index.Érték);
-
-        db++;
-
+    let inputs = tr.querySelectorAll("input");
+    /*  let inputs = tr.querySelectorAll("input.tm-control"); */
+    let data = {};
+    for (let i = 0; i < inputs.length; i++) {
+        data[inputs[i].name] = inputs[i].value;
     }
-    let atlag = (osszeg / db);
-
-    kiiras = atlag.toString();
-
-    document.getElementById("osszesen").value = atlag;
+    return data;
 }
 
-function minkeres() {
-    var kiiras;
-    var szam1;
-    var min = undefined;
-    
+function setRow(btn) {
+    let tr = btn.parentElement.parentElement.parentElement;
+    let data = getRowData(tr);
+    let fetchOption = {
+        method: "PUT",
+        mode: "cors",
+        cache: "no-cache",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
 
-    for (let index of Object.values(AdatObj)) {
-
-        szam1 = Number(index.Érték);
-       
-        if (typeof min === "undefined") { min = szam1; }
-        else if (min > szam1) { min = szam1; }
-    }
-    kiiras = min.toString();
-    document.getElementById("szelsomin").value = min;
-
-
-}
-function maxkeres() {
-    var kiiras;
-    var szam1;
-    var max = undefined;
-    
-
-    for (let index of Object.values(AdatObj)) {
-
-        szam1 = Number(index.Érték);
-       
-        if (typeof max === "undefined") { max = szam1; }
-        else if (max < szam1) { max = szam1; }
-    }
-    kiiras = max.toString();
-    document.getElementById("szelsomax").value = max;
-
+    };
+    fetch(`http://localhost:3000/StatAdat/${data.id}`, fetchOption).then(
+        resp => resp.json(),
+        err => console.error(err)
+    ).then(
+        data => {
+            StartGetUsers()
+        }
+    );
 
 }

@@ -1,0 +1,46 @@
+{
+  "StatAdat": [
+    {
+      "id": 4,
+      "Dátum": "2020-08-04",
+      "Érték": 50
+    },
+    {
+      "id": 10,
+      "Dátum": "2020-08-12",
+      "Érték": "12000"
+    },
+    {
+      "Dátum": "2020-08-11",
+      "Érték": "1100",
+      "id": 11
+    },
+    {
+      "Dátum": "2020-08-13",
+      "Érték": "1300",
+      "id": 12
+    },
+    {
+      "Dátum": "2020-08-15",
+      "Érték": "1500",
+      "id": 13
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

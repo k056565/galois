@@ -6,8 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" ; href="css/style.css">
-    <link rel="stylesheet" ; href="lib/css/bootstrap.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
+    <link rel="stylesheet" ; href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
     <title>GALOIS BT</title>
 </head>
 
@@ -34,11 +40,11 @@
                         <li class="nav-item active">
                             <a class="nav-link " href="index.html">Főoldal</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Statisztika</a>
-                        </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Oktatás</a>
+                            <a class="nav-link" href="statisztika.html">Statisztika</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Oktatás</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="ugyvitel.html">Ügyvitel</a>
@@ -63,38 +69,35 @@
         <p class="pOsztaly"></p>
 
         <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <strong>STATISZTIKAI SZÁMÍTÁS</strong>
+            <strong>OKTATÁS</strong>
             Töltse ki a dátumot és a mérési eredményt, majd click a számításhoz.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <form id=" Adatok" class="pOsztaly">
-            <div class="form-row">
-                <div class="form-group col-md-3"></div>
-                <div class="form-group col-md-3">
-                    <label for="inputDatum">dátum</label>
-                    <input type="date" class="form-control" id="inputDatum">
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="inputAdat">mérési eredmény</label>
-                    <input type="numeric" class="form-control" id="inputAdat">
-                </div>
-                <button onclick="tombbeir()" type="submit" class="btn btn-success">submit</button>
-            </div>
-        </form>
+
         <div class="container">
             <div class="row">
                 <div class="col-2"></div>
                 <div class="col-8">
+                    <button id="GetDataBtn" class="btn btn-block btn-primary">
+                        ADATOK FRISSÍTÉSE
+                    </button>
+                    <div class="col-2"></div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
                     <table id="DataTable" class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>dátum</th>
                                 <th>érték</th>
-                               
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,7 +137,26 @@
         </div>
     </div>
 
-    <script src="js/statisztika.js"></script>
+    <script src="statisztika.js"></script>
+    <script src="js/server.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
