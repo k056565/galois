@@ -1,9 +1,4 @@
-var express = required(express-generator);
-var app = express();
-var port = process.env.PORT;
-var server = app.listen (port, function(){
 
-});
 
 let keys = ["id", "Dátum", "Érték"];
 let darab = 0;
