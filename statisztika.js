@@ -1,5 +1,15 @@
-let keys = ["id", "Dátum", "Érték"];
+var express = required(express-generator);
+var app = express();
+var port = process.env.PORT;
+var server = app.listen (port, function(){
 
+});
+
+let keys = ["id", "Dátum", "Érték"];
+let darab = 0;
+let szumma = 0;
+let maximum = 0;
+let minimum = 0;
 {
     let bezarAlert = document.querySelectorAll(".close[data-dismiss='alert']");
     for (let i = 0; i < bezarAlert.length; i++) {
@@ -51,6 +61,7 @@ function FillDataTable(data, TableId) {
 
 
     for (let row of data) {
+        darab = darab + 1;
         let tr = createAnyElement("tr");
         for (let k of keys) {
             let td = createAnyElement("td");
@@ -61,18 +72,35 @@ function FillDataTable(data, TableId) {
                 name: k
 
             });
+            if (k == "Érték") {
 
-            if (k == "id") {
-                input.setAttribute("readonly", true);
+                szumma = szumma + Number(row[k]);
+                if (darab == 1) {
+                    maximum = Number(row[k]);
+                    minimum = Number(row[k]);
+                } else {
+                    if (maximum < Number(row[k])) {
+                        maximum = Number(row[k]);
+                    }
+                    if (minimum > Number(row[k])) {
+                        minimum = Number(row[k]);
+                    }
+                }
 
+                if (k == "id") {
+                    input.setAttribute("readonly", true);
+
+                }
             }
             td.appendChild(input);
             tr.appendChild(td);
+
         }
         let btngroup = createBtnGroup();
         tr.appendChild(btngroup);
 
         tBody.appendChild(tr);
+
     }
 }
 
@@ -101,27 +129,27 @@ function delRow(btn) {
     let tr = btn.parentElement.parentElement.parentElement;
 
     let id = tr.querySelector("td:first-child").querySelector("input").value;
-    
+
 
     let fetchOption = {
         method: "DELETE",
         mode: "cors",
         cache: "no-cache"
-       
+
     };
-    
-      if (confirm("Biztosan törli az adatot?")) {
-     fetch(`http://localhost:3000/StatAdat/${id}`, fetchOption).then( 
-       
-     
-           resp => resp.json(),
-           err => console.error(err)
-       ).then(
-           data => {
-               StartGetUsers()
-           }
-       );
-       }; 
+
+    if (confirm("Biztosan törli az adatot?")) {
+        fetch(`http://localhost:3000/StatAdat/${id}`, fetchOption).then(
+
+
+            resp => resp.json(),
+            err => console.error(err)
+        ).then(
+            data => {
+                StartGetUsers()
+            }
+        );
+    };
 }
 function newUserRow(row) {
     let tr = createAnyElement("tr");
@@ -200,5 +228,22 @@ function setRow(btn) {
             StartGetUsers()
         }
     );
-
 }
+
+function osszead() {
+
+    let atlag = (szumma / darab);
+
+
+    document.getElementById("osszesen").value = atlag.toFixed();
+}
+function minkeres() {
+
+    document.getElementById("szelsomin").value = minimum;
+}
+function maxkeres() {
+
+    document.getElementById("szelsomax").value = maximum;
+}
+
+
